@@ -13,17 +13,21 @@ import com.hencoder.hencoderpracticedraw6.R;
 public class Practice05MultiProperties extends ConstraintLayout {
     Button animateBt;
     ImageView imageView;
+    private final int P = 100, N = 101;
+    private int expectAction = P;
+    private int mScreenWidth;
 
     public Practice05MultiProperties(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public Practice05MultiProperties(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public Practice05MultiProperties(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        mScreenWidth = getResources().getDisplayMetrics().widthPixels;
     }
 
     @Override
@@ -39,6 +43,26 @@ public class Practice05MultiProperties extends ConstraintLayout {
             @Override
             public void onClick(View v) {
                 // TODO 在这里处理点击事件，同时对多个属性做动画
+                switch (expectAction) {
+                    case P:
+                        expectAction = N;
+                        imageView.animate()
+                                .translationX(mScreenWidth >> 1)
+                        .alpha(1)
+                        .scaleX(1)
+                        .scaleY(1)
+                        .rotation(360);
+                        break;
+                    case N:
+                        expectAction = P;
+                        imageView.animate()
+                                .translationX(0)
+                                .alpha(0)
+                                .scaleX(0)
+                                .scaleY(0)
+                                .rotation(0);
+                        break;
+                }
             }
         });
     }

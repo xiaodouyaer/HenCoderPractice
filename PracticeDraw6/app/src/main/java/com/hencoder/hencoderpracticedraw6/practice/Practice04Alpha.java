@@ -13,6 +13,8 @@ import com.hencoder.hencoderpracticedraw6.R;
 public class Practice04Alpha extends RelativeLayout {
     Button animateBt;
     ImageView imageView;
+    private final int P = 100, N = 101;
+    private int expectAction = P;
 
     public Practice04Alpha(Context context) {
         super(context);
@@ -30,13 +32,23 @@ public class Practice04Alpha extends RelativeLayout {
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
 
-        animateBt = (Button) findViewById(R.id.animateBt);
-        imageView = (ImageView) findViewById(R.id.imageView);
+        animateBt = findViewById(R.id.animateBt);
+        imageView = findViewById(R.id.imageView);
 
         animateBt.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
                 // TODO 在这里处理点击事件，通过 View.animate().alpha() 来改变 View 的透明度
+                switch (expectAction) {
+                    case P:
+                        expectAction = N;
+                        imageView.animate().alpha(0);
+                        break;
+                    case N:
+                        expectAction = P;
+                        imageView.animate().alpha(1);
+                        break;
+                }
             }
         });
     }

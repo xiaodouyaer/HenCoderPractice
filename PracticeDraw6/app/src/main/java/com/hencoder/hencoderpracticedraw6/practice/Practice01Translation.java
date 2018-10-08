@@ -23,9 +23,8 @@ public class Practice01Translation extends RelativeLayout {
     ImageView imageView;
     private int mScreenWidth;
 
-    private int currentStatus;
-    private int nextStatus;
     private final int PX = 100, NX = 101, PY = 102, NY = 103, PZ = 104, NZ = 105;
+    private int expectAction = PX;
 
     public Practice01Translation(Context context) {
         this(context, null);
@@ -55,37 +54,32 @@ public class Practice01Translation extends RelativeLayout {
             @Override
             public void onClick(final View v) {
                 // TODO 在这里处理点击事件，通过 View.animate().translationX/Y/Z() 来让 View 平移
-                switch (currentStatus) {
-                    case 0:
-                        currentStatus = PX;
-                        animate().translationX(mScreenWidth >> 1);
-                        break;
+                switch (expectAction) {
                     case PX:
-                        currentStatus = NX;
-                        animate().translationX(-mScreenWidth >> 1);
+                        expectAction = NX;
+                        imageView.animate().translationX(mScreenWidth >> 1);
                         break;
                     case NX:
-                        currentStatus = PY;
-                        animate().translationY(200);
+                        expectAction = PY;
+                        imageView.animate().translationX(0);
                         break;
                     case PY:
-                        currentStatus = NY;
-                        animate().translationY(-200);
+                        expectAction = NY;
+                        imageView.animate().translationY(200);
                         break;
                     case NY:
-                        currentStatus = PZ;
-
+                        expectAction = PZ;
+                        imageView.animate().translationY(0);
                         break;
                     case PZ:
-                        currentStatus = NZ;
-
+                        expectAction = NZ;
+                        imageView.animate().translationZ(200);
                         break;
                     case NZ:
-                        currentStatus = 0;
-
+                        expectAction = PX;
+                        imageView.animate().translationZ(0);
                         break;
                 }
-
             }
         });
     }
